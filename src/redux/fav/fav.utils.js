@@ -1,10 +1,14 @@
-export function addQuote(newQuote, fav) {
-  const quoteExist = fav.find((quote) => quote.id === newQuote.id);
+export function addQuote(newQuote, quotes) {
+  const quoteExist = quotes.find((quote) => quote.id === newQuote.id);
   if (quoteExist) {
     alert("You have this quote in your fav already");
-    return [...fav];
+    return [...quotes];
   } else {
     alert("Quote added!");
-    return [...fav, newQuote];
+    return [...quotes, newQuote];
   }
+}
+
+export function removeQuote(quoteToRemoveId, quotes) {
+  return quotes.filter((quote) => quote.id !== quoteToRemoveId);
 }

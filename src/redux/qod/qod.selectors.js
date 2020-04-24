@@ -8,3 +8,8 @@ export const selectQodFetched = createSelector(
   [selectQod],
   (qod) => qod.fetched
 );
+
+export const selectQodFetching = createSelector(
+  [selectQod],
+  (qod) => qod.fetching
+);

@@ -1,22 +1,32 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { selectQuote, selectQodFetched } from "./../../redux/qod/qod.selectors";
+import {
+  selectQuote,
+  selectQodFetched,
+  selectQodFetching,
+} from "./../../redux/qod/qod.selectors";
 import { createStructuredSelector } from "reselect";
 import { fetchQodStart } from "./../../redux/qod/qod.actions";
 import { addToFav } from "./../../redux/fav/fav.actions";
 
-const Qod = ({ quote, fetchQodStart, quoteFetched, addToFav }) => {
+const Qod = ({
+  quote,
+  fetchQodStart,
+  quoteFetched,
+  addToFav,
+  quoteFetching,
+}) => {
   useEffect(() => {
     fetchQodStart();
   }, [fetchQodStart]);
 
   return (
     <div>
-      {quoteFetched ? (
+      {quoteFetched && (
         <div
           style={{ border: "solid 1px gray", width: "500px", padding: "10px" }}
         >
-          <p>{quote.body}</p>
+          <p>{`"${quote.body}"`}</p>
           <h5>{quote.author}</h5>
           <button
             onClick={() => {
@@ -33,9 +43,8 @@ const Qod = ({ quote, fetchQodStart, quoteFetched, addToFav }) => {
             Reload
           </button>
         </div>
-      ) : (
-        <div>Loading...</div>
       )}
+      {quoteFetching && <div>Loading...</div>}
     </div>
   );
 };
@@ -43,6 +52,7 @@ const Qod = ({ quote, fetchQodStart, quoteFetched, addToFav }) => {
 const mapStateProps = createStructuredSelector({
   quote: selectQuote,
   quoteFetched: selectQodFetched,
+  quoteFetching: selectQodFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
